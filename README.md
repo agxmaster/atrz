@@ -43,7 +43,7 @@ create table student (
 
 #### 创建接口
 
-POST /create/:model
+POST /atr/create/:model
 
 创建5个student
 ```
