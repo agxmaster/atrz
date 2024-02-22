@@ -66,7 +66,7 @@ POST /create/:model
 ```
 ##### list接口
 
-Get /list/:model/:page
+Get /atr/list/:model/:page
 
 ```
 curl http://localhost:8888/atr/list/student/2?class=1&_order=age,desc&_order=gender&_size=1
@@ -96,7 +96,7 @@ curl http://localhost:8888/atr/list/student/2?class=1&_order=age,desc&_order=gen
 
 ##### info接口
 
-GET /info/:model/:id
+GET /atr/info/:model/:id
 
 ```
 curl http://localhost:8888/atr/info/student/1
@@ -118,11 +118,11 @@ curl http://localhost:8888/atr/info/student/1
     "message":""
 }
 ```
-POST /update/:model
+POST /atr/update/:model
 
 ##### update接口 
 ```
-curl -X POST 127.0.0.1:8888/update/student/5 -H 'Content-Type: application/json' -d "{\"name\":\"Sandra\",\"gender\":1,\"age\":13,\"class\":\"2\"}"
+curl -X POST 127.0.0.1:8888/atr/update/student/5 -H 'Content-Type: application/json' -d "{\"name\":\"Sandra\",\"gender\":1,\"age\":13,\"class\":\"2\"}"
 ```
 
 ```
@@ -130,10 +130,10 @@ curl -X POST 127.0.0.1:8888/update/student/5 -H 'Content-Type: application/json'
 ```
 
 ##### delete 接口
-POST /delete/:model/:id
+POST /atr/delete/:model/:id
 
 ```
-curl -X POST 127.0.0.1:8888/delete/student/5
+curl -X POST 127.0.0.1:8888/atr/delete/student/5
 ```
 
 ```
@@ -142,10 +142,10 @@ curl -X POST 127.0.0.1:8888/delete/student/5
 
 #### 批量创建接口
 
-POST /batch/create/:model
+POST /atr/batch/create/:model
 
 ```
- curl -X POST 127.0.0.1:8888/batch/create/student -H 'Content-Type: application/json' -d "[{\"name\":\"Scarlet\",\"gender\":2,\"age\":8,\"class\":\"3\",\"province\":\"beijin\"},{\"name\":\"Tania\",\"gender\":2,\"age\":9,\"class\":\"2\",\"province\":\"hebei\"}]"
+ curl -X POST 127.0.0.1:8888/atr/batch/create/student -H 'Content-Type: application/json' -d "[{\"name\":\"Scarlet\",\"gender\":2,\"age\":8,\"class\":\"3\",\"province\":\"beijin\"},{\"name\":\"Tania\",\"gender\":2,\"age\":9,\"class\":\"2\",\"province\":\"hebei\"}]"
 ```
 
 ```
