@@ -47,11 +47,11 @@ POST /create/:model
 
 创建5个student
 ```
-  curl -X POST 127.0.0.1:8888/create/student -H 'Content-Type: application/json' -d "{\"name\":\"Beatty\",\"gender\":1,\"age\":12,\"class\":\"1\",\"province\":\"hebei\"}"
-  curl -X POST 127.0.0.1:8888/create/student -H 'Content-Type: application/json' -d "{\"name\":\"Bell\",\"gender\":1,\"age\":8,\"class\":\"2\",\"province\":\"hunan\"}"
-  curl -X POST 127.0.0.1:8888/create/student -H 'Content-Type: application/json' -d "{\"name\":\"Abbey\",\"gender\":2,\"age\":8,\"class\":\"1\",\"province\":\"beijin\"}"
-  curl -X POST 127.0.0.1:8888/create/student -H 'Content-Type: application/json' -d "{\"name\":\"Adele\",\"gender\":2,\"age\":11,\"class\":\"2\",\"province\":\"beijin\"}"
-  curl -X POST 127.0.0.1:8888/create/student -H 'Content-Type: application/json' -d "{\"name\":\"Beckman\",\"gender\":1,\"age\":11,\"class\":\"2\",\"province\":\"henan\"}"
+  curl -X POST 127.0.0.1:8888/atr/create/student -H 'Content-Type: application/json' -d "{\"name\":\"Beatty\",\"gender\":1,\"age\":12,\"class\":\"1\",\"province\":\"hebei\"}"
+  curl -X POST 127.0.0.1:8888/atr/create/student -H 'Content-Type: application/json' -d "{\"name\":\"Bell\",\"gender\":1,\"age\":8,\"class\":\"2\",\"province\":\"hunan\"}"
+  curl -X POST 127.0.0.1:8888/atr/create/student -H 'Content-Type: application/json' -d "{\"name\":\"Abbey\",\"gender\":2,\"age\":8,\"class\":\"1\",\"province\":\"beijin\"}"
+  curl -X POST 127.0.0.1:8888/atr/create/student -H 'Content-Type: application/json' -d "{\"name\":\"Adele\",\"gender\":2,\"age\":11,\"class\":\"2\",\"province\":\"beijin\"}"
+  curl -X POST 127.0.0.1:8888/atr/create/student -H 'Content-Type: application/json' -d "{\"name\":\"Beckman\",\"gender\":1,\"age\":11,\"class\":\"2\",\"province\":\"henan\"}"
 ```
 
 
