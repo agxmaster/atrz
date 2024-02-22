@@ -2,8 +2,8 @@
 
 ```go
 atrz.WithRules(core.Rules{
-{Table: []string{"student"}, RouteTypes: []core.RouteType{core.RouteTypeList}, RuleType: core.RuleTypeAllow},
-{Table: []string{"*"}, RouteTypes: []core.RouteType{"*"}, RuleType: core.RuleTypeDeny},
+    {Table: []string{"student"}, RouteTypes: []core.RouteType{core.RouteTypeList}, RuleType: core.RuleTypeAllow},
+    {Table: []string{"*"}, RouteTypes: []core.RouteType{"*"}, RuleType: core.RuleTypeDeny},
 }),
 ```
 
@@ -12,9 +12,9 @@ atrz.WithRules(core.Rules{
 
 type Rules []Rule
 type Rule struct {
-Table      []string
-RouteTypes []RouteType
-RuleType   RuleType
+    Table      []string
+    RouteTypes []RouteType
+    RuleType   RuleType
 }
 
 ```
