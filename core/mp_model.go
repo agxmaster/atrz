@@ -12,7 +12,7 @@ import (
 
 type MpModel struct {
 	Model                    reflect.Type
-	ColumnMapping            map[string]string          //db列采用别名作为查询条件， 展示的别名通过model的column的注解处理 这里不做单独处理
+	ColumnMapping            map[string]string          //db列采用别名作为查询条件
 	Select                   []string                   //查询接口要展示的列
 	Hidden                   []string                   //查询需要隐藏的列
 	AddColumns               []map[string]ColumnAddFunc //用于查询接口 这里可以为数据集增加列、或者对列的数据做变形
@@ -95,7 +95,7 @@ func (c *MpModel) FormatRowsMapList(ctx context.Context, res []atm.RowsMap) ([]a
 }
 
 func (c *MpModel) FormatHandler(ctx context.Context, resMap map[string]interface{}) {
-	c.FormatSelect(ctx, resMap).FormatAddColumns(ctx, resMap).FormatHidden(ctx, resMap)
+	c.FormatColumnMap(ctx, resMap).FormatAddColumns(ctx, resMap).FormatHidden(ctx, resMap)
 }
 
 func (c *MpModel) FormatAddColumns(ctx context.Context, resMap map[string]interface{}) *MpModel {
@@ -168,4 +168,25 @@ func (c *MpModel) GetCustomMpModel(method Method, routePath string, modelName st
 		}
 	}
 	return nil
+}
+
+func (c *MpModel) FormatColumnMap(ctx context.Context, resMap map[string]interface{}) *MpModel {
+	if c.ColumnMapping != nil {
+		for k, v := range c.ColumnMapping {
+			if pv, ok := resMap[k]; ok {
+				resMap[v] = pv
+				delete(resMap, k)
+			}
+		}
+	}
+	return c
+}
+
+func (c *MpModel) BatchQueryChange(ctx context.Context, params []map[string]interface{}) []map[string]interface{} {
+	if c.ColumnMapping != nil {
+		for i := range params {
+			params[i] = c.QueryChange(ctx, params[i])
+		}
+	}
+	return params
 }

@@ -26,12 +26,13 @@ func ConfigModelMap() map[string]core.MpModel {
 				"gender": "sex",
 			},
 			//Select: []string{"name"},
-			Select:              []string{"name", "gender", "class", "created_at", "updated_at"},
+			Select:              []string{"name", "sex", "class", "created_at", "updated_at"},
 			Hidden:              []string{"updated_at"},
 			AddColumns:          StudentAddColumns,
 			ListWithCustomScope: StudentListWithCustomScope,
 			CreateParamsHandler: StudentCreateParamsHandler,
 			UpdateParamsHandler: StudentUpdateParamsHandler,
+			//UpdateParamsHandler: nil,
 			//Aggregations:        []core.Aggregation{{core.AggregationTypeCount, "age", "count_name"}},
 			CanGroupColumn: []string{"name", "class"},
 		},
@@ -54,7 +55,7 @@ func StudentListWithCustomScope(ctx context.Context, customJson []byte) (clause.
 	}, nil
 }
 
-func StudentUpdateParamsHandler(ctx context.Context, params interface{}) (map[string]interface{}, error) {
+func StudentUpdateParamsHandler(ctx context.Context, params map[string]interface{}) (map[string]interface{}, error) {
 	modelParams, err := util.InterfaceToAny[model.Student](params)
 	if err != nil {
 		return nil, err
@@ -62,28 +63,22 @@ func StudentUpdateParamsHandler(ctx context.Context, params interface{}) (map[st
 	if modelParams.Age < 5 {
 		return nil, errors.New("age 5 not allowed")
 	} else if modelParams.Age < 6 {
-		modelParams.Age = 8
+		params["age"] = 8
 	}
-	newParams, err := util.InterfaceToAny[map[string]interface{}](interface{}(*modelParams))
-	return *newParams, err
+	return params, nil
 }
 
-func StudentCreateParamsHandler(ctx context.Context, params interface{}) (map[string]interface{}, error) {
-	mapParams, err := util.InterfaceToAny[map[string]interface{}](params)
-	if err != nil {
-		return nil, err
-	}
-
-	if age, ok := (*mapParams)["age"]; ok {
+func StudentCreateParamsHandler(ctx context.Context, params map[string]interface{}) (map[string]interface{}, error) {
+	if age, ok := params["age"]; ok {
 		if ageInt, ok := age.(int); ok {
 			if ageInt < 5 {
 				return nil, errors.New("age 5 not allowed")
 			} else if ageInt < 6 {
-				(*mapParams)["age"] = 8
+				params["age"] = 8
 			}
 		}
 	}
-	return *mapParams, nil
+	return params, nil
 }
 
 var StudentAddColumns = []map[string]core.ColumnAddFunc{

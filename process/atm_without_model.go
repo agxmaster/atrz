@@ -12,7 +12,7 @@ type AtmWithOutModel struct {
 
 func (p *AtmWithOutModel) Info(id int) (interface{}, error) {
 	db := atm.M{DB: core.Db}
-	data, err := db.First(p.Ctx, p.ModelName, int64(id))
+	data, err := db.First(p.Ctx, p.ModelName, int64(id), p.ModelConf.Select)
 	if err != nil {
 		return data, nil
 	}
@@ -55,6 +55,8 @@ func (p *AtmWithOutModel) Create() error {
 			return err
 		}
 	}
+
+	data = p.ModelConf.QueryChange(p.Ctx, data)
 	return db.Create(p.Ctx, p.ModelName, data)
 }
 
@@ -72,6 +74,8 @@ func (p *AtmWithOutModel) BatchCreate() error {
 			return err
 		}
 	}
+
+	data = p.ModelConf.BatchQueryChange(p.Ctx, data)
 	return (&atm.M{DB: core.Db}).BatchCreate(p.Ctx, p.ModelName, data)
 }
 

@@ -19,6 +19,7 @@ func SetUp(db *gorm.DB, z *server.Hertz, opts ...core.Option) {
 
 	core.Db = db
 	core.Mp.Apply(opts)
+	core.CompleteConfig()
 	core.AtrRouter(z)
 }
 

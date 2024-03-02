@@ -3,7 +3,7 @@ module github.com/agxmaster/atrz
 go 1.18
 
 require (
-	github.com/agxmaster/atm v0.0.0-20240205083613-c2d149a367ef
+	github.com/agxmaster/atm v0.0.0-20240302075046-39e3b391a35a
 	github.com/cloudwego/hertz v0.8.0
 	gorm.io/driver/mysql v1.5.2
 	gorm.io/gorm v1.25.5

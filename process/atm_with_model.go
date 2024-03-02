@@ -12,7 +12,7 @@ type AtmWithModel struct {
 
 func (p *AtmWithModel) Info(id int) (interface{}, error) {
 	model := reflect.New(p.ModelConf.Model).Interface()
-	data, err := atm.First(p.Ctx, core.Db, model, int64(id))
+	data, err := atm.First(p.Ctx, core.Db, model, int64(id), p.ModelConf.Select)
 
 	if err != nil {
 		return data, nil
@@ -40,7 +40,7 @@ func (p *AtmWithModel) Delete(id int) error {
 }
 
 func (p *AtmWithModel) Create() error {
-	data := reflect.New(p.ModelConf.Model).Elem().Interface()
+	data := make(map[string]interface{})
 	err := p.C.BindAndValidate(&data)
 
 	if err != nil {
@@ -53,11 +53,12 @@ func (p *AtmWithModel) Create() error {
 			return err
 		}
 	}
+	data = p.ModelConf.QueryChange(p.Ctx, data)
 	return atm.Create(p.Ctx, core.Db, reflect.New(p.ModelConf.Model).Interface(), data)
 }
 
 func (p *AtmWithModel) BatchCreate() error {
-	data := reflect.New(reflect.SliceOf(p.ModelConf.Model)).Elem().Interface()
+	data := make([]map[string]interface{}, 0)
 	err := p.C.BindAndValidate(&data)
 
 	if err != nil {
@@ -70,11 +71,13 @@ func (p *AtmWithModel) BatchCreate() error {
 			return err
 		}
 	}
+
+	data = p.ModelConf.BatchQueryChange(p.Ctx, data)
 	return atm.BatchCreate(p.Ctx, core.Db, reflect.New(p.ModelConf.Model).Interface(), data)
 }
 
 func (p *AtmWithModel) Update(id int) error {
-	data := reflect.New(p.ModelConf.Model).Elem().Interface()
+	data := make(map[string]interface{})
 
 	err := p.C.BindAndValidate(&data)
 	if err != nil {

@@ -170,7 +170,7 @@ func SetDefaultRoute() {
 		},
 		{
 			RouteType: RouteTypeUpdate,
-			RoutePath: "/update/:model",
+			RoutePath: "/update/:model/:id",
 			Handler:   Mp.Iatr.Update,
 			Method:    MethodPost,
 		},

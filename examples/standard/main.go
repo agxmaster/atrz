@@ -12,11 +12,9 @@ func main() {
 	z := server.Default()
 	dal.MysqlSetup()
 	atrz.SetUp(dal.DB, z,
-		atrz.WithModelConfig(func() map[string]core.MpModel {
-			return defined.ConfigModelMap()
-		}),
+		atrz.WithModelConfig(defined.ConfigModelMap),
 		atrz.WithRules(core.Rules{
-			{Table: []string{"student"}, RouteTypes: []core.RouteType{core.RouteTypeList}, RuleType: core.RuleTypeAllow},
+			{Table: []string{"student"}, RouteTypes: []core.RouteType{"*"}, RuleType: core.RuleTypeAllow},
 			{Table: []string{"*"}, RouteTypes: []core.RouteType{"*"}, RuleType: core.RuleTypeDeny},
 		}),
 	)

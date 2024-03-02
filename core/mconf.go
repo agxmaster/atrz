@@ -25,8 +25,8 @@ var (
 )
 
 type ColumnAddFunc func(ctx context.Context, line map[string]interface{}, addKey string) interface{}
-type SaveParamsHandler func(ctx context.Context, params interface{}) (map[string]interface{}, error)
-type SaveBatchParamsHandler func(ctx context.Context, params interface{}) ([]map[string]interface{}, error)
+type SaveParamsHandler func(ctx context.Context, params map[string]interface{}) (map[string]interface{}, error)
+type SaveBatchParamsHandler func(ctx context.Context, params []map[string]interface{}) ([]map[string]interface{}, error)
 type ListWithCustomScope func(ctx context.Context, customJson []byte) (clause.Scope, error)
 
 type SetModel func() map[string]MpModel
@@ -69,4 +69,16 @@ func GetConf() *map[string]MpModel {
 
 func GetCustomConf() *map[string][]MpModel {
 	return &Mp.CustomModelMap
+}
+
+func CompleteConfig() {
+	for _, mp := range Mp.ModelMap {
+		for k, v := range mp.ColumnMapping {
+			for index, column := range mp.Select {
+				if column == v {
+					mp.Select[index] = fmt.Sprintf("%s as %s", k, v)
+				}
+			}
+		}
+	}
 }
